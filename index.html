@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ala Aamin Pharmacy Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Login Form -->
+    <div id="login-container" class="login-container">
+        <div class="login-form">
+            <div class="logo-container">
+                <img src="images/logo.jpg" alt="Ala Aamin Pharmacy Logo" class="pharmacy-logo">
+            </div>
+            <h2>Al-aamin Pharmacy Management System</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" required placeholder="Enter your username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" required placeholder="Enter your password">
+                </div>
+                <button type="submit" class="btn-primary"><i class="fas fa-sign-in-alt"></i> Login</button>
+            </form>
+            <div id="login-error" class="error-message"></div>
+        </div>
+    </div>
+    
+    <!-- Main Application (Hidden by default) -->
+    <div id="main-app" style="display: none;">
+    <header>
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="images/logo.jpg" alt="Ala Aamin Pharmacy Logo" class="pharmacy-logo">
+            </div>
+            <h1><i class="fas fa-clinic-medical"></i> Ala Aamin Pharmacy Management System</h1>
+        </div>
+        <!-- Top navigation for mobile -->
+        <nav>
+            <ul>
+                <li><a href="#" id="mobile-dashboard-link" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="#" id="mobile-customers-link"><i class="fas fa-users"></i> Customers</a></li>
+                <li><a href="#" id="mobile-products-link"><i class="fas fa-pills"></i> Products</a></li>
+                <li><a href="#" id="mobile-sales-link"><i class="fas fa-cash-register"></i> Sales</a></li>
+                <li><a href="#" id="mobile-staff-link"><i class="fas fa-user-md"></i> Staff</a></li>
+                <li><a href="#" id="mobile-suppliers-link"><i class="fas fa-truck"></i> Suppliers</a></li>
+                <li><a href="#" id="mobile-reports-link"><i class="fas fa-chart-bar"></i> Reports</a></li>
+                <li><a href="#" id="mobile-backup-link"><i class="fas fa-database"></i> Backup</a></li>
+                <li><a href="#" id="mobile-users-link"><i class="fas fa-users-cog"></i> Users</a></li>
+                <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <h3>Navigation</h3>
+            <ul>
+                <li><a href="#" id="dashboard-link" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="#" id="customers-link"><i class="fas fa-users"></i> Customers</a></li>
+                <li><a href="#" id="products-link"><i class="fas fa-pills"></i> Products</a></li>
+                <li><a href="#" id="sales-link"><i class="fas fa-cash-register"></i> Sales</a></li>
+                <li><a href="#" id="staff-link"><i class="fas fa-user-md"></i> Staff</a></li>
+                <li><a href="#" id="suppliers-link"><i class="fas fa-truck"></i> Suppliers</a></li>
+                <li><a href="#" id="reports-link"><i class="fas fa-chart-bar"></i> Reports</a></li>
+                <li><a href="#" id="backup-link"><i class="fas fa-database"></i> Backup</a></li>
+                <li><a href="#" id="users-link"><i class="fas fa-users-cog"></i> Users</a></li>
+                <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </nav>
+        
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <section id="dashboard-section" class="content-section active">
+                <h2><i class="fas fa-tachometer-alt"></i> Dashboard</h2>
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <i class="fas fa-users fa-2x"></i>
+                    <h3>Total Customers</h3>
+                    <p id="total-customers">0</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-pills fa-2x"></i>
+                    <h3>Total Products</h3>
+                    <p id="total-products">0</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-cash-register fa-2x"></i>
+                    <h3>Total Sales</h3>
+                    <p id="total-sales">0</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-truck fa-2x"></i>
+                    <h3>Total Suppliers</h3>
+                    <p id="total-suppliers">0</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-user-md fa-2x"></i>
+                    <h3>Total Staff</h3>
+                    <p id="total-staff">0</p>
+                </div>
+            </div>
+            
+            <div class="dashboard-stats second-row">
+                <div class="stat-card">
+                    <i class="fas fa-chart-line fa-2x"></i>
+                    <h3>Today's Sales</h3>
+                    <p id="today-sales">$0.00</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-exclamation-triangle fa-2x"></i>
+                    <h3>Low Stock Items</h3>
+                    <p id="low-stock">0</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-calendar-check fa-2x"></i>
+                    <h3>Active Customers</h3>
+                    <p id="active-customers">0</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-star fa-2x"></i>
+                    <h3>Top Product</h3>
+                    <p id="top-product">-</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="customers-section" class="content-section">
+            <h2><i class="fas fa-users"></i> Customers Management</h2>
+            <button id="add-customer-btn" class="btn-primary"><i class="fas fa-plus-circle"></i> Add New Customer</button>
+            <div id="customer-form-container" class="form-container hidden">
+                <h3>Add/Edit Customer</h3>
+                <form id="customer-form">
+                    <input type="hidden" id="customer-id">
+                    <div class="form-group">
+                        <label for="customer-name">Name:</label>
+                        <input type="text" id="customer-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-phone">Phone:</label>
+                        <input type="text" id="customer-phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-address">Address:</label>
+                        <textarea id="customer-address"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Save Customer</button>
+                    <button type="button" id="cancel-customer-btn" class="btn-secondary"><i class="fas fa-times"></i> Cancel</button>
+                </form>
+            </div>
+            <table id="customers-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Customer data will be populated here -->
+                </tbody>
+            </table>
+        </section>
+
+        <section id="products-section" class="content-section">
+            <h2><i class="fas fa-pills"></i> Products Management</h2>
+            <button id="add-product-btn" class="btn-primary"><i class="fas fa-plus-circle"></i> Add New Product</button>
+            <div id="product-form-container" class="form-container hidden">
+                <h3>Add/Edit Product</h3>
+                <form id="product-form">
+                    <input type="hidden" id="product-id">
+                    <div class="form-group">
+                        <label for="product-name">Product Name:</label>
+                        <input type="text" id="product-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="product-description">Description:</label>
+                        <textarea id="product-description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="product-price">Price:</label>
+                        <input type="number" id="product-price" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="product-quantity">Quantity:</label>
+                        <input type="number" id="product-quantity" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="product-category">Category:</label>
+                        <select id="product-category">
+                            <option value="prescription">Prescription</option>
+                            <option value="otc">Over-the-Counter</option>
+                            <option value="supplements">Supplements</option>
+                            <option value="personal-care">Personal Care</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="product-expiry">Expiry Date:</label>
+                        <input type="date" id="product-expiry">
+                    </div>
+                    <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Save Product</button>
+                    <button type="button" id="cancel-product-btn" class="btn-secondary"><i class="fas fa-times"></i> Cancel</button>
+                </form>
+            </div>
+            <table id="products-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Expiry Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Product data will be populated here -->
+                </tbody>
+            </table>
+        </section>
+
+        <section id="sales-section" class="content-section">
+            <h2><i class="fas fa-cash-register"></i> Sales Management</h2>
+            <button id="add-sale-btn" class="btn-primary"><i class="fas fa-cart-plus"></i> New Sale</button>
+            <div id="sale-form-container" class="form-container hidden">
+                <h3>New Sale</h3>
+                <form id="sale-form">
+                    <div class="form-group">
+                        <label for="sale-customer-name">Customer Name:</label>
+                        <input type="text" id="sale-customer-name" required placeholder="Enter customer name">
+                        <input type="hidden" id="sale-customer">
+                    </div>
+                    <div class="form-group">
+                        <label for="sale-product">Product:</label>
+                        <select id="sale-product" required>
+                            <option value="">Select a product</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sale-quantity">Quantity:</label>
+                        <input type="number" id="sale-quantity" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sale-discount">Discount (%):</label>
+                        <input type="number" id="sale-discount" min="0" max="100" value="0">
+                    </div>
+                    <button type="submit" class="btn-primary"><i class="fas fa-cash-register"></i> Complete Sale</button>
+                    <button type="button" id="cancel-sale-btn" class="btn-secondary"><i class="fas fa-times"></i> Cancel</button>
+                </form>
+            </div>
+            <table id="sales-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Customer</th>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Sales data will be populated here -->
+                </tbody>
+            </table>
+        </section>
+
+        <section id="suppliers-section" class="content-section">
+            <h2><i class="fas fa-truck"></i> Suppliers Management</h2>
+            <button id="add-supplier-btn" class="btn-primary"><i class="fas fa-plus-circle"></i> Add New Supplier</button>
+            <div id="supplier-form-container" class="form-container hidden">
+                <h3>Add/Edit Supplier</h3>
+                <form id="supplier-form">
+                    <input type="hidden" id="supplier-id">
+                    <div class="form-group">
+                        <label for="supplier-name">Supplier Name:</label>
+                        <input type="text" id="supplier-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="supplier-contact">Contact Person:</label>
+                        <input type="text" id="supplier-contact">
+                    </div>
+                    <div class="form-group">
+                        <label for="supplier-phone">Phone:</label>
+                        <input type="text" id="supplier-phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="supplier-email">Email:</label>
+                        <input type="email" id="supplier-email">
+                    </div>
+                    <div class="form-group">
+                        <label for="supplier-address">Address:</label>
+                        <textarea id="supplier-address"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Save Supplier</button>
+                    <button type="button" id="cancel-supplier-btn" class="btn-secondary"><i class="fas fa-times"></i> Cancel</button>
+                </form>
+            </div>
+            <table id="suppliers-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Contact</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Supplier data will be populated here -->
+                </tbody>
+            </table>
+        </section>
+
+        <section id="reports-section" class="content-section">
+            <h2><i class="fas fa-chart-bar"></i> Reports</h2>
+            <div class="report-filters">
+                <div class="form-group">
+                    <label for="report-start-date">Start Date:</label>
+                    <input type="date" id="report-start-date">
+                </div>
+                <div class="form-group">
+                    <label for="report-end-date">End Date:</label>
+                    <input type="date" id="report-end-date">
+                </div>
+                <button id="generate-report-btn" class="btn-primary"><i class="fas fa-chart-bar"></i> Generate Report</button>
+            </div>
+            <div id="report-results">
+                <h3>Sales Report</h3>
+                <button id="export-report-btn" class="btn-primary" style="margin-bottom: 15px;"><i class="fas fa-file-export"></i> Export Report</button>
+                <table id="report-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Customer</th>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Report data will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <section id="staff-section" class="content-section">
+            <h2><i class="fas fa-user-md"></i> Staff Management</h2>
+            <button id="add-staff-btn" class="btn-primary"><i class="fas fa-plus-circle"></i> Add New Staff</button>
+            <div id="staff-form-container" class="form-container hidden">
+                <h3>Add/Edit Staff</h3>
+                <form id="staff-form">
+                    <input type="hidden" id="staff-id">
+                    <div class="form-group">
+                        <label for="staff-name">Full Name:</label>
+                        <input type="text" id="staff-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="staff-position">Position:</label>
+                        <input type="text" id="staff-position" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="staff-phone">Phone:</label>
+                        <input type="text" id="staff-phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="staff-email">Email:</label>
+                        <input type="email" id="staff-email">
+                    </div>
+                    <div class="form-group">
+                        <label for="staff-address">Address:</label>
+                        <textarea id="staff-address"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="staff-salary">Salary:</label>
+                        <input type="number" id="staff-salary" step="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label for="staff-hire-date">Hire Date:</label>
+                        <input type="date" id="staff-hire-date">
+                    </div>
+                    <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Save Staff</button>
+                    <button type="button" id="cancel-staff-btn" class="btn-secondary"><i class="fas fa-times"></i> Cancel</button>
+                </form>
+            </div>
+            <table id="staff-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Salary</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Staff data will be populated here -->
+                </tbody>
+            </table>
+        </section>
+        
+        <section id="backup-section" class="content-section">
+            <h2><i class="fas fa-database"></i> Backup & Restore</h2>
+            <div class="backup-restore-container">
+                <div class="backup-section">
+                    <h3>Create Backup</h3>
+                    <p>Download a backup of all system data including customers, products, sales, suppliers, staff, and users.</p>
+                    <button id="backup-btn" class="btn-primary"><i class="fas fa-download"></i> Download Backup</button>
+                </div>
+                
+                <div class="restore-section">
+                    <h3>Restore Backup</h3>
+                    <p>Upload a previously created backup file to restore system data.</p>
+                    <input type="file" id="restore-file" accept=".json" style="margin-bottom: 15px;">
+                    <button id="restore-btn" class="btn-primary"><i class="fas fa-upload"></i> Restore Backup</button>
+                </div>
+            </div>
+        </section>
+        
+        <section id="users-section" class="content-section">
+            <h2><i class="fas fa-users-cog"></i> User Management</h2>
+            <button id="add-user-btn" class="btn-primary"><i class="fas fa-plus-circle"></i> Add New User</button>
+            <div id="user-form-container" class="form-container hidden">
+                <h3>Add/Edit User</h3>
+                <form id="user-form">
+                    <input type="hidden" id="user-id">
+                    <div class="form-group">
+                        <label for="user-name">Full Name:</label>
+                        <input type="text" id="user-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-username">Username:</label>
+                        <input type="text" id="user-username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-password">Password:</label>
+                        <input type="password" id="user-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-role">Role:</label>
+                        <select id="user-role" required>
+                            <option value="admin">Admin</option>
+                            <option value="user">User</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Save User</button>
+                    <button type="button" id="cancel-user-btn" class="btn-secondary"><i class="fas fa-times"></i> Cancel</button>
+                </form>
+            </div>
+            <table id="users-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- User data will be populated here -->
+                </tbody>
+            </table>
+        </section>
+    </div>
+    </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
